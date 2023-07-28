@@ -78,4 +78,22 @@ router.get("/sent-emails", async (req, res) => {
   }
 });
 
+router.delete("/delete-email/:id", async (req, res) => {
+  try {
+    const email = await Email.findById(req.params.id);
+    if (!email) return res.status(404).send("No email found.");
+
+    await Email.deleteOne({ _id: req.params.id });
+
+    console.log(
+      `Email with ID: ${req.params.id} has been deleted. Email details: `,
+      email
+    );
+
+    res.json({ message: "Email deleted." });
+  } catch (err) {
+    return res.status(500).send("Failed to delete email.");
+  }
+});
+
 module.exports = router;
