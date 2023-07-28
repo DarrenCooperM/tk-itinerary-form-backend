@@ -7,7 +7,7 @@
     "nodemailer": "^6.9.4"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "dev": "nodemon server.js"
   },
   "name": "server",
   "version": "1.0.0",
