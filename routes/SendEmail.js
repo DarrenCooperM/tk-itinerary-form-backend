@@ -1,11 +1,25 @@
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
+const Email = require("../schema/emailSchema"); // import the model
 
 router.post("/send-email", async (req, res) => {
   let { email, subject, itinerary } = req.body;
 
   console.log("Received POST request:", req.body);
+
+  // Save the data to MongoDB
+  const newEmail = new Email({
+    email,
+    subject,
+    itinerary,
+  });
+
+  try {
+    await newEmail.save();
+  } catch (err) {
+    return res.status(500).send("Failed to save email details.");
+  }
 
   let transporter = nodemailer.createTransport({
     service: "gmail",
