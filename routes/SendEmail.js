@@ -69,4 +69,13 @@ router.post("/send-email", async (req, res) => {
   }
 });
 
+router.get("/sent-emails", async (req, res) => {
+  try {
+    const emails = await Email.find();
+    res.json(emails);
+  } catch (err) {
+    res.status(500).send("Failed to fetch emails.");
+  }
+});
+
 module.exports = router;
