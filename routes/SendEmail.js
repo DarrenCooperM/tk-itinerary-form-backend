@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
+const moment = require("moment");
 const Email = require("../schema/emailSchema"); // import the model
 
 router.post("/send-email", async (req, res) => {
@@ -50,10 +51,18 @@ router.post("/send-email", async (req, res) => {
                 .map(
                   (item) => `
                 <tr>
-                  <td style="border: 1px solid #ddd; padding: 8px;">${item.activity}</td>
-                  <td style="border: 1px solid #ddd; padding: 8px;">${item.date}</td>
-                  <td style="border: 1px solid #ddd; padding: 8px;">${item.time}</td>
-                  <td style="border: 1px solid #ddd; padding: 8px;">${item.description}</td>
+                  <td style="border: 1px solid #ddd; padding: 8px;">${
+                    item.activity
+                  }</td>
+                  <td style="border: 1px solid #ddd; padding: 8px;">${moment(
+                    item.date
+                  ).format("Do MMM YYYY")}</td>
+                  <td style="border: 1px solid #ddd; padding: 8px;">${
+                    item.time
+                  }</td>
+                  <td style="border: 1px solid #ddd; padding: 8px;">${
+                    item.description
+                  }</td>
                 </tr>
               `
                 )
