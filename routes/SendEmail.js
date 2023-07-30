@@ -34,30 +34,34 @@ router.post("/send-email", async (req, res) => {
     to: email, // receiver
     subject: subject,
     html: `
-        <table>
-          <thead>
-            <tr>
-              <th>Activity</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${itinerary
-              .map(
-                (item) => `
-              <tr>
-                <td>${item.activity}</td>
-                <td>${item.date}</td>
-                <td>${item.time}</td>
-                <td>${item.description}</td>
+        <div style="font-family: Arial, sans-serif; margin: 0 auto; padding: 20px; max-width: 600px;">
+          <h2 style="text-align: center;">Your Itinerary for ${subject}</h2>
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background-color: #f8f8f8;">
+                <th style="border: 1px solid #ddd; padding: 8px;">Activity</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Date</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Time</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Description</th>
               </tr>
-            `
-              )
-              .join("")}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              ${itinerary
+                .map(
+                  (item) => `
+                <tr>
+                  <td style="border: 1px solid #ddd; padding: 8px;">${item.activity}</td>
+                  <td style="border: 1px solid #ddd; padding: 8px;">${item.date}</td>
+                  <td style="border: 1px solid #ddd; padding: 8px;">${item.time}</td>
+                  <td style="border: 1px solid #ddd; padding: 8px;">${item.description}</td>
+                </tr>
+              `
+                )
+                .join("")}
+            </tbody>
+          </table>
+          <p style="text-align: center; margin-top: 30px;">Thank you for using our service. Have a great day!</p>
+        </div>
       `,
   };
 
